@@ -1,18 +1,19 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-	snippet: '',
-	comments: '',
-	project: '',
-	tags: '',
-	search: '',
-	recievedSnippets: [],
+  snippet: '',
+  comments: '',
+  project: '',
+  tags: '',
+  search: '',
+  recievedSnippets: [],
   userSnippets: [],
 
 }
 
 const snipReducer = (state = initialState, action) => {
   switch (action.type) {
+
 
     case types.CREATE_SNIPPET:
       return {
@@ -41,14 +42,14 @@ const snipReducer = (state = initialState, action) => {
         ...state,
         userSnippets: action.payload.data,
       }
-     
-  	// case types.GET_TAGS:
-  	//   return {
-  	//   	...state,
-  	//     recievedTags: action.payload,
-  	//   }
 
-  	case types.ENTER_SNIPPET:
+    // case types.GET_TAGS:
+    //   return {
+    //   	...state,
+    //     recievedTags: action.payload,
+    //   }
+
+    case types.ENTER_SNIPPET:
       return {
         ...state,
         snippet: action.payload,
