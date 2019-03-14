@@ -49,7 +49,7 @@ snippetController.createTags = (req, res) => {
 snippetController.getAllUserTags = (req, res) => {
   const user_id = req.cookies.user_id;
   const query = {
-    name: 'get-all-tags',
+    name: 'get-all-tags-for-user',
     text: 'SELECT tags.tag FROM tags INNER JOIN snippets ON snippets.id = tags.snippet_id WHERE snippets.user_id = $1;',
     values: [user_id]
   };
@@ -59,6 +59,19 @@ snippetController.getAllUserTags = (req, res) => {
       const tags = [];
       result.rows.forEach(obj => tags.push(obj.tag));
       res.json(tags);
+    });
+};
+
+snippetController.getAllTags = (req, res) => {
+  const query = {
+    name: 'get-all-tags',
+    text: 'SELECT DISTINCT tag FROM tags'
+  };
+
+  pool.query(query)
+    .then(result => {
+      console.log('result.rows', result.rows)
+      res.json(result.rows);
     });
 };
 

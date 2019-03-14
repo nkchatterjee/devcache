@@ -99,6 +99,57 @@ describe('Route integration', () => {
     })
   });
 
+  describe('/mysnippets', ()=>{
+    describe('GET', ()=>{
+      it('should return content-type text/html with a 200 status',()=>{
+        return request(server)
+          .get('/mysnippets')
+          .expect(200)
+          .expect('Content-Type', /text\/html/)
+      })
+    })
+  })
+  
+  describe('/login', ()=>{
+    describe('POST', ()=>{
+      it('should accept a correct user/pass combination with a  201 status', ()=>{
+        return request(server)
+          .post('/login')
+          .send({username:'shane', password:'shane'})
+          .expect(201)
+      })
+    })
+  })
+
+  describe('/api/getalltags', ()=>{
+    describe('GET', ()=>{
+      it('should return an array of tag objects',()=>{
+        return request(server)
+          .get('/api/getalltags')
+          .expect((res)=>{
+            if(!Array.isArray(res.body)){
+              throw new Error('fetched item is not an array')
+            }
+            if (typeof res.body[0] !== 'object'){
+              throw new Error('items in the array are not object')
+            }
+        })
+      })
+    })
+  })
+
+});
+
+  /*
+  describe('/signup', ()=>{
+    describe('POST', ()=>{
+      it('should accept a new username / password with a 201 status',()=>{
+
+      })
+    })
+  })
+  */
+
   // describe('/deletesnippetbyid', () => {
   //   describe('GET', () => {
   //     it('should return a 200 status and the string `ok`', () => {
@@ -110,7 +161,6 @@ describe('Route integration', () => {
   //     })
   //   });
   // })
-});
 
 
 
@@ -168,4 +218,4 @@ describe('Route integration', () => {
   //     });
   //   });
   // });
-});
+  //});
