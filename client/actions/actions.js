@@ -1,6 +1,9 @@
 import Axios from "axios";
 import * as types from '../constants/actionTypes';
 
+// _________________________________________
+// LOGIN/LOGOUT RELATED ACTIONS
+
 // success
 export const logIn = (userInfo) => ({
   type: types.LOGIN,
@@ -80,6 +83,9 @@ export const userLogout = (userid) => dispatch => {
   .then(() => dispatch(logOut()))
 }
 
+// ________________________________________________
+// SNIPPET RELATED ACTIONS
+
 export const enterSnippet = (value) => ({
   type: types.ENTER_SNIPPET,
   payload: value,
@@ -121,7 +127,7 @@ export const getTagsFromDB = () => dispatch => {
   .catch(err => console.log(err))
 }
 
-export const getSnippetsByTag = (tag) => dispatch => {
+export const getSnippetsByTag = (tag) => (dispatch, getState) => {
   return fetch(`http://localhost:3000/getsnippetsbytag/?tag=${tag}`, {
       headers: { "Content-Type": "application/json" },
       credentials: 'include',
@@ -151,7 +157,7 @@ export const getSnippetsByUser = (username) => (dispatch, getState) => {
   .catch(err => console.log(err))
 }
 
-export const getSnippetsMineOnly = () => (dispatch) => {
+export const getSnippetsMineOnly = () => (dispatch, getState) => {
   let config = {
     url: `http://localhost:3000/getsnippetsbyuser`,
     method:'GET',
@@ -159,9 +165,20 @@ export const getSnippetsMineOnly = () => (dispatch) => {
   }
   return Axios.request(config)
   .then(res => {
-    return dispatch({
+    dispatch({
       type: types.GET_SNIPPET_MINE_ONLY,
       payload: res,
+    })
+  })
+  .then( () => {
+    // logic for building out trie
+    getState().snip.userSnippets.forEach( (snippet) => {
+      snippet.tags.forEach( (tag) => {
+        dispatch({
+          type: types.TRIE_INSERT,
+          payload: tag,
+        })
+      })
     })
   })
   .catch(err => console.log(err))
@@ -183,6 +200,11 @@ export const createSnippet = () => (dispatch, getState) => {
   .then( res => {
     if(res.ok) getSnippetsByUser(getState().user.username)
   })
+  .then(
+    dispatch({
+      type: types.CREATE_SNIPPET,
+    })
+  )
   .catch(err => console.log(err))
 }
 
@@ -200,8 +222,23 @@ export const deleteSnippet = (id) => dispatch => {
   .catch(err => console.log(err))
 }
 
-//___________________________
+// ________________________________________________
+// TRIE RELATED ACTIONS
 
+export const trieInsert = (value) => ({
+  type: types.TRIE_INSERT,
+  payload: value,
+})
+
+export const trieFind = (value) => ({
+  type: types.TRIE_FIND,
+  payload: value,
+})
+
+export const trieFindChildren = (event) => ({
+  type: types.TRIE_FIND_CHILDREN,
+  payload: event.target.value,
+})
 
   // Database Methods
 

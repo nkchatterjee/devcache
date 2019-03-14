@@ -26,8 +26,15 @@ const sideBar = function(props) {
       >
         { tagArray[i] }
       </p>
-    );
+    )
   };
+
+  function massOnChange(event) {
+    console.log()
+    event.persist()
+    props.enterSearch(event);
+    props.trieFindChildren(event);
+  }
 
   return (
     <div className='side-bar'>
@@ -39,7 +46,7 @@ const sideBar = function(props) {
           name='search-bar'
           placeholder='Search my snippets'
           value={props.search}
-          onChange={props.enterSearch}
+          onChange={massOnChange}
         />
       </div>
       <DisplaySnippets

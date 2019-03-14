@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 
 const DisplaySnippets = props => {
-  console.log('whats userSnippets?, ', props.userSnippets)
   const snippetsArray = props.userSnippets;
   const snippetsDisplayArray = [];
 

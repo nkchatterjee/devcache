@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 // Import Children
-
 import AddSnip from '../components/addSnip.jsx';
 import SideBar from '../components/sideBar.jsx';
 import MySnippettes from '../components/MySnippets';
@@ -20,20 +19,29 @@ const mapStateToProps = (store) => ({
   // recievedTags: store.snip.recievedTags,
   recievedSnippets: store.snip.recievedSnippets,
   userSnippets: store.snip.userSnippets,
+  tagTrie: store.trie.tagTrie,
 })
 
 const mapDispatchToProps = dispatch => ({
+  // uiux related
   userLogout: (id) => { dispatch(actions.userLogout(id)) },
   enterSnippet: (event) => { dispatch(actions.enterSnippet(event.target.value)) },
   enterComments: (event) => { dispatch(actions.enterComments(event.target.value)) },
   enterProject: (event) => { dispatch(actions.enterProject(event.target.value)) },
   enterTags: (event) => { dispatch(actions.enterTags(event.target.value)) },
   enterSearch: (event) => { dispatch(actions.enterSearch(event.target.value)) },
+
+  // snippet related
   createSnippet: () => { dispatch(actions.createSnippet()) },
   deleteSnippet: () => { dispatch(actions.deleteSnippet()) },
   getSnippetsByUser: (username) => { dispatch(actions.getSnippetsByUser(username)) },
   getSnippetsMineOnly: () => { dispatch(actions.getSnippetsMineOnly()) },
   getSnippetsByTag: (tag) => { dispatch(actions.getSnippetsByTag(tag)) },
+
+  // trie related
+  trieInsert: () => { dispatch(actions.trieInsert()) },
+  trieFind: () => { dispatch(actions.trieFind()) },
+  trieFindChildren: (event) => { dispatch(actions.trieFindChildren(event)) },
 
   // getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
 
@@ -50,8 +58,7 @@ class HomeContainer extends Component {
   };
 
   render() {
-
-    const { getSnippetsMineOnly, userSnippets, userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
+    const { trieFindChildren, getSnippetsMineOnly, userSnippets, userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
 
     return (
       <React.Fragment>
@@ -75,6 +82,7 @@ class HomeContainer extends Component {
             search={search}
             userSnippets={userSnippets}
             getSnippetsByUser={getSnippetsByUser}
+            trieFindChildren={trieFindChildren}
           />
         </div>
         <Route path="/mysnippets" render={() => (!isLoggedIn ? <Redirect to="/login" />
