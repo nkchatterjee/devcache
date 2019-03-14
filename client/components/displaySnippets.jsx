@@ -8,11 +8,8 @@ const DisplaySnippets = props => {
   if(snippetsArray) {
     for (let i = 0; i < snippetsArray.length; i++) {
       snippetsDisplayArray.push(
-        <div
-          key={'snippet' + i}
-          id={ snippetsArray[i].id }
-        >
-            <Button variant="outline-dark" className="tagged-snippet text-left" size='sm'>
+        <div key={'snippet' + i} id={ snippetsArray[i].id }>
+            <Button bsPrefix="tagged-snippet" variant="outline-dark" className="text-left">
               { snippetsArray[i].snippet }
             </Button>
         </div>

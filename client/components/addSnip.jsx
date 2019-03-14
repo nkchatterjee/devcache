@@ -1,5 +1,6 @@
 import React from 'react';
-import { InputGroup, FormControl, Button, Nav } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, Nav, } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const addSnip = props => {
 
@@ -51,7 +52,7 @@ const addSnip = props => {
           aria-describedby="basic-addon1"
         />
         <InputGroup.Append>
-          <Button variant="success" onClick={props.createSnippet}>Submit Snippet</Button>
+          <Link to="/mysnippets"><Button variant="success" onClick={props.createSnippet}>Submit Snippet</Button></Link>
         </InputGroup.Append>
       </InputGroup>
     </React.Fragment>

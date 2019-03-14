@@ -252,11 +252,29 @@ h3 {
   position: relative;
   text-align: left;
   position: absolute;
-  margin: 10px;
-  font-size: 1rem;
 } 
 
+.tagged-snippet {
+  margin: 4px 0;
+  font-size: 70%;
+  border-radius: 5px;
+  background-color: rgb(196, 208, 221);
+  line-height: 1.5em;
+  height: 4em;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
 .nav {
-  background-color: lightblue;
+  background-color: lavender;
   height: 100px;
+}
+
+.navbar-brand
+{
+  font-size: 60px !important;
+  color: rgb(62, 62, 105) !important;
+  margin-left: 30px;
 }

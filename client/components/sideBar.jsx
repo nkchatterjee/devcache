@@ -3,7 +3,6 @@ import React from 'react';
 import DisplaySnippets from '../components/displaySnippets.jsx';
 import { Image, Navbar, Form, Dropdown, FormControl, Button, Nav, InputGroup } from 'react-bootstrap';
 
-
 const sideBar = function(props) {
   
   const tagSet = new Set(props.userTags);
@@ -13,9 +12,6 @@ const sideBar = function(props) {
   // TODO
   // get all snippets by current user
   // then, filter all current user's snippets by props.search
-  //
-
-  
 
   for (let i = 0; i < tagArray.length; i++) {
     displayArray.push(
@@ -30,7 +26,6 @@ const sideBar = function(props) {
   };
 
   function massOnChange(event) {
-    console.log()
     event.persist()
     props.enterSearch(event);
     props.trieFindChildren(event);

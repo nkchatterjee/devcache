@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 // Import Children
 import AddSnip from '../components/addSnip.jsx';
 import SideBar from '../components/sideBar.jsx';
-import MySnippettes from '../components/MySnippets';
+import MySnippettes from '../components/MySnippettes.jsx';
 
 const mapStateToProps = (store) => ({
   userInfo: store.user.userInfo,
@@ -85,11 +85,15 @@ class HomeContainer extends Component {
             trieFindChildren={trieFindChildren}
           />
         </div>
-        <Route path="/mysnippets" render={() => (!isLoggedIn ? <Redirect to="/login" />
-            : <MySnippettes
-                getMatchChats={getMatchChats} 
+        <Router>
+          <Switch>
+            <Route path="/mysnippets" render={() => (!isLoggedIn ? <Redirect to="/login" />
+              : <MySnippettes
                 userInfo={userInfo}
-                userSnippets={userSnippets} />)} />
+                userSnippets={userSnippets}
+                getSnippetsMineOnly={getSnippetsMineOnly} />)} />
+          </Switch>
+        </Router>
       </React.Fragment>
     );
   };

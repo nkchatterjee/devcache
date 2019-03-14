@@ -6,7 +6,7 @@ const Header = props => {
   const myPic = assets + 'myPic.jpg';
   return (
     <Navbar className="nav" expand="lg" margin-bottom="100px">
-      <Navbar.Brand href='#'>devCache</Navbar.Brand>
+      <Navbar.Brand className="navbar-brand">devCache</Navbar.Brand>
       <Dropdown alignRight className='ml-auto'>
       <Form inline >
         <FormControl type="text" placeholder="Search" className="mr-2" />

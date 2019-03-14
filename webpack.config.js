@@ -31,7 +31,7 @@ module.exports = {
     publicPath: '/build',
     contentBase: './',
     proxy: {
-        context: ['/api/user', '/login', '/signup', '/logout'],
+        context: ['/api/user', '/login', '/signup', '/logout', 'mysnippets'],
         target: 'http://localhost:3000',
         secure: false,
         port: 8080,
