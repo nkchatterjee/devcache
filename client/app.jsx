@@ -7,6 +7,7 @@ import Login from './components/Login.jsx';
 import Registration from './components/Registration.jsx';
 import HomeContainer from './containers/HomeContainer.jsx';
 import Header from './components/Header.jsx';
+import MySnippettes from './components/MySnippettes.jsx'
 
 const mapStateToProps = (store) => ({
   isLoggedIn: store.user.isLoggedIn,
@@ -15,6 +16,7 @@ const mapStateToProps = (store) => ({
   fullName: store.user.fullName,
   password: store.user.password,
   username: store.user.username,
+  userSnippets: store.snip.userSnippets,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -26,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   enterPassword: (event) => { dispatch(actions.enterPassword(event.target.value)) },
   enterUsername: (event) => { dispatch(actions.enterUsername(event.target.value)) },
   userLogout: (id) => { dispatch(actions.userLogout(id)) },
+  getSnippetsByUser: (username) => { dispatch(actions.getSnippetsByUser(username)) },
 })
 
 class App extends Component {
@@ -39,29 +42,29 @@ class App extends Component {
   }
 
   render() {
-    const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
-    return(
-    <div>
-      {(isLoggedIn) ? <Header userInfo={userInfo} userLogout={userLogout} /> : '' }
-      <Router>
-        <Switch>
-        <Route exact path="/" render={ () => !isLoggedIn ? <Redirect to="/login" />
-              : <HomeContainer 
+    const { userLogin, userSnippets, getSnippetsMineOnly, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
+    return (
+      <div>
+        {(isLoggedIn) ? <Header userInfo={userInfo} userLogout={userLogout} /> : ''}
+        <Router>
+          <Switch>
+            <Route exact path="/" render={() => !isLoggedIn ? <Redirect to="/login" />
+              : <HomeContainer
                 userInfo={userInfo}
                 userLogout={userLogout}
               />
-          } />
-          <Route path="/login" render={ () => isLoggedIn ? <Redirect to="/" />
-              : <Login 
-                userLogin={userLogin} 
-                enterUsername={enterUsername} 
-                enterPassword={enterPassword} 
-                username={username} 
-                password={password} 
+            } />
+            <Route path="/login" render={() => isLoggedIn ? <Redirect to="/" />
+              : <Login
+                userLogin={userLogin}
+                enterUsername={enterUsername}
+                enterPassword={enterPassword}
+                username={username}
+                password={password}
               />
-          } />
-          <Route path="/signup" render={ () => isLoggedIn ? <Redirect to="/" />
-              : <Registration 
+            } />
+            <Route path="/signup" render={() => isLoggedIn ? <Redirect to="/" />
+              : <Registration
                 userSignup={userSignup}
                 enterEmail={enterEmail}
                 email={email}
@@ -71,12 +74,16 @@ class App extends Component {
                 username={username}
                 enterPassword={enterPassword}
                 password={password}
-              />
-          } />
-        </Switch>
-      </Router>
-    </div>
+              />} />
+            <Route path="/mysnippets" render={() => (!isLoggedIn ? <Redirect to="/login" />
+                : <MySnippettes
+                  userInfo={userInfo}
+                  userSnippets={userSnippets}
+                  getSnippetsMineOnly={getSnippetsMineOnly} />)} />
+          </Switch>
+        </Router>
+      </div>
     )
   }
 }
-  export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Image, Navbar, Form, Dropdown, FormControl, Button, Nav } from 'react-bootstrap';
+
 const Login = props => {
   
   return (
@@ -23,11 +25,11 @@ const Login = props => {
           placeholder='password'
           onChange={ props.enterPassword }
         />
-        <button
+        <Button variant="outline-dark"
           onClick={() => props.userLogin(props.username, props.password) }
-        >Login</button>
+        >Login</Button>
         {/* This redirects to register */}
-        <Link to="/signup"> <button>Register</button> </Link>
+        <Link to="/signup"> <Button variant="outline-dark">Register</Button> </Link>
       </div>
     </div>
   );

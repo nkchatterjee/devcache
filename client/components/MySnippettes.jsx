@@ -24,7 +24,7 @@ const MySnippettes = props => {
   return (
     <div>
       <h1>
-      {snippetsDisplayArray}
+      hello
       </h1>
     </div>
   );

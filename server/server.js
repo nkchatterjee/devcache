@@ -36,6 +36,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/mysnippets', (req,res)=>{
+  console.log('this is a good sign');
   res.sendFile(path.resolve('./index.html'))
 })
 
