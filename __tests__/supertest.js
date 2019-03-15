@@ -117,6 +117,22 @@ describe('Route integration', () => {
           .post('/login')
           .send({username:'shane', password:'shane'})
           .expect(201)
+          .expect((res)=>{
+            console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiii')
+            console.log(res.headers['set-cookie'])
+          })
+      })
+    })
+  })
+  describe('/logout', ()=>{
+    describe('GET', ()=>{
+      it('should return an object with a key/value pair of loggedout:true', ()=>{
+        return request(server)
+          .get('/logout')
+          .expect((res)=>{
+            expect(typeof res.body).toEqual('object');
+            expect(res.body.loggedout).toEqual(true);
+          })
       })
     })
   })
