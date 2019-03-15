@@ -239,15 +239,3 @@ export const trieFindChildren = (event) => ({
   type: types.TRIE_FIND_CHILDREN,
   payload: event.target.value,
 })
-
-  // Database Methods
-
-  // submitSearch() {
-  //   let tag = this.state.search;
-  //   this.grabSnippetsByTag(tag);
-  // };
-
-  // grabSnippetsFromDB(e) {
-  //   let tag = e.target.id;
-  //   this.grabSnippetsByTag(tag);
-  // };

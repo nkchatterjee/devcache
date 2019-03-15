@@ -68,6 +68,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
       }
+    
+    case types.DELETE_SNIPPET: 
+      return {
+        ...state,
+      }
 
     default:
       return state;

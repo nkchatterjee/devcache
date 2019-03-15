@@ -39,7 +39,7 @@ const sideBar = function(props) {
           id='search-field'
           type='text'
           name='search-bar'
-          placeholder='Search my snippets'
+          placeholder='Sort by tag'
           value={props.search}
           onChange={massOnChange}
         />
