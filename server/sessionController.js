@@ -25,4 +25,23 @@ sessionController.startSession = (req, res, next) => {
     });
 };
 
+sessionController.endSession= (req, res, next) => {
+  const sid = req.cookies.session_id;
+  const query = {
+    name: 'end-session',
+    text: 'DELETE FROM sessions WHERE "usersession"= $1;',
+    values: [sid]
+  };
+  pool.query(query)
+    .then(result=>{
+      next();
+    })
+}
+
+sessionController.clearCookies= (req, res, next) => {
+  res.clearCookie('session_id');
+  res.clearCookie('user_id');
+  res.json({loggedout:true})
+}
+
 module.exports = sessionController;

@@ -35,6 +35,9 @@ app.get('/login', (req, res) => {
   res.sendFile(path.resolve('./index.html'));
 });
 
+app.get('/logout', sessionController.endSession, sessionController.clearCookies 
+);
+
 app.get('/mysnippets', (req,res)=>{
   res.sendFile(path.resolve('./index.html'))
 })
